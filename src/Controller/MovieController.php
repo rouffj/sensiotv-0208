@@ -3,7 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Movie;
+use App\Entity\Review;
 use App\Omdb\OmdbClient;
+use App\Repository\MovieRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,11 +26,14 @@ class MovieController extends AbstractController
     /**
      * @Route("/movie/{id}", name="movie", requirements={"id": "tt\d+"})
      */
-    public function details(string $id): Response
+    public function details(string $id, MovieRepository $movieRepo): Response
     {
-        $row = $this->omdbClient->requestById($id);
-        $movie = new Movie();
-        $movie->fromArray($row);
+        $movie = $movieRepo->findOneBy(['imdbId' => $id]);
+        if (!$movie) {
+            $row = $this->omdbClient->requestById($id);
+            $movie = new Movie();
+            $movie->fromArray($row);
+        }
 
         return $this->render('movie/details.html.twig', [
             'movie' => $movie,
@@ -85,6 +92,32 @@ class MovieController extends AbstractController
         ]);
 
         return $response;
+    }
+
+    /**
+     * @Route("/movie/add/{imdbId}")
+     */
+    public function addMovie(string $imdbId,
+                             EntityManagerInterface $em,
+                             UserRepository $userRepository): Response
+    {
+        $row = $this->omdbClient->requestById($imdbId);
+        $movie = new Movie();
+        $movie->fromArray($row);
+
+        $user = $userRepository->findOneBy(['id' => 1]);
+
+        $review = new Review();
+        $review->setRating(4);
+        $review->setBody('Ce film est vraiment extraordinaire à voir absolument ;).');
+        $review->setUser($user);
+        $review->setMovie($movie);
+
+        $em->persist($movie);
+        $em->persist($review);
+        $em->flush();
+
+        return new Response('Movie added');
     }
 
     /**
