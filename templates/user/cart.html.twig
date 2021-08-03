@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="author" content="SensioTV">
-    <meta name="description" content="Avengers movie details.">
+    <meta name="description" content="User shopping cart.">
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=10"><![endif]-->
 
     <meta property="og:image" content="https://university.sensiolabs.com/images/sensiolabs-university-fullwhite.png">
-    <meta property="og:title" content="SensioTV from SensioLabs University - Avengers Movie Details">
-    <meta property="og:description" content="Avengers movie details.">
+    <meta property="og:title" content="SensioTV from SensioLabs University - My Cart">
+    <meta property="og:description" content="Access to your personal cart.">
 
-    <title>SensioTV - Avengers: Endgame Details</title>
+    <title>SensioTV - Shopping cart</title>
+
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
     <!-- Personal CSS -->
@@ -55,9 +56,23 @@
 </header>
 
 <main id="main">
-    {% block body %}
-        BLOCK BODY
-    {% endblock %}
+    <section id="central-section" class="bg-light p-5">
+        <div class="container jumbotron p-5 img-rounded">
+            <div class="row">
+                <div class="col">
+                    <h1 class="display-4 font-weight-bold">Your shopping cart is empty.</h1>
+                </div>
+            </div>
+            <div class="row m-5">
+                <div class="col text-center">
+                    <img class="img-fluid m-5" src="/assets/images/empty-cart.png" alt="Empty Cart Logo">
+                    <p class="lead">
+                        Your Shopping Cart lives to serve. Give it purpose — fill it with some cool movies.<br> You can find a lot <a class="lead" href="#" title="See all the top rated movies">here !</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
 
 <footer class="container py-5 mt-5 mb-5">
