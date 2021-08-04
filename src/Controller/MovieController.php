@@ -41,11 +41,11 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/movie/top-rated", name="movie_top_rated")
+     * @Route("/movie/search/{movieName}", name="movie_top_rated", defaults={"movieName": "Harry Potter"})
      */
-    public function topRated(): Response
+    public function search($movieName): Response
     {
-        $rows = $this->omdbClient->requestBySearch('Lord of the rings');
+        $rows = $this->omdbClient->requestBySearch($movieName);
 
         $movies = [];
         foreach ($rows['Search'] as $row) {
@@ -55,7 +55,7 @@ class MovieController extends AbstractController
         }
         dump($movies, $rows);
 
-        return $this->render('movie/top-rated.html.twig', [
+        return $this->render('movie/search.html.twig', [
             'movies' => $movies,
         ]);
     }
