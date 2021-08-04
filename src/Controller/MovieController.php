@@ -12,15 +12,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class MovieController extends AbstractController
 {
     private $omdbClient;
 
-    public function __construct(HttpClientInterface $httpClient)
+    public function __construct(OmdbClient $omdbClient)
     {
-        $this->omdbClient = new OmdbClient($httpClient, '28c5b7b1', 'https://www.omdbapi.com/');
+        $this->omdbClient = $omdbClient;
     }
 
     /**
