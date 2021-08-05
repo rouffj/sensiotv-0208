@@ -23,7 +23,9 @@
 
 {% macro login_section() %}
     {% if app.user %}
-        <span style="color: #fff">Hi {{ app.user.firstName }} | <a href="{{ logout_path() }}">Logout</a> | last login: {{ app.user.lastLoginAt()|date }}</span>
+        <span style="color: #fff">Hi {{ app.user.firstName }} | <a href="{{ logout_path() }}">Logout</a>
+            {% if app.userlastLoginAt() is defined %} | last login: {{ app.user.lastLoginAt()|date }} {% endif %}
+        </span>
     {% else %}
         <li class="nav-item active"><a class="nav-link" href="/user/cart" title="Register or log in"><i class="fas fa-shopping-bag"></i></a></li>
         <li class="nav-item active"><a class="nav-link" href="/login" title="Register or log in"><i class="fas fa-user"></i></a></li>

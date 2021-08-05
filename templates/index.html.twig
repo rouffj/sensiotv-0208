@@ -62,7 +62,15 @@
                 <div class="col-md-12 mx-auto m-5">
                     <img class="m-5" src="/assets/images/sensiotv-icon.png" alt="SensioTV Brand Icon">
                     <h2 class="display-3 font-weight-bold mb-5">Sensio<span class="color-green">TV+</span></h2>
-                    <p class="lead"><strong class="font-weight-bold">We will make you love TV again. Share with your co-workers the movies or series you have watched to inspire them!<br /> Comment or vote for movies of your co-workers...</strong></p>
+                    <p class="lead"><strong class="font-weight-bold">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                Happy to see an admin on our  website :).
+                            {% else %}
+                                We will make you love TV again. Share with your co-workers the movies or series you have watched to inspire them!<br /> Comment or vote for movies of your co-workers...
+                            {% endif %}
+
+                        </strong>
+                    </p>
                 </div>
             </div>
         </div>

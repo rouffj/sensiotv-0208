@@ -20,7 +20,8 @@ security:
 
             form_login:
                 username_parameter: _email
-
+            logout:
+                target: /?logout=true
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
@@ -30,5 +31,6 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_USER }
+        - { path: ^/user, roles: ROLE_USER }
+        - { path: ^/login, allow_if: 'is_anonymous() or is_granted("ROLE_MODERATOR")'}
