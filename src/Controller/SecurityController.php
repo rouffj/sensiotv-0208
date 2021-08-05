@@ -23,6 +23,14 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/login_check", name="login_check")
+     */
+    public function loginCheck(): Response
+    {
+        throw new \LogicException('This route is managed by the security component');
+    }
+
+    /**
      * @Route("/register", name="register")
      */
     public function register(Request $request,
