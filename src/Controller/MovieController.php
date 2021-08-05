@@ -104,7 +104,7 @@ class MovieController extends AbstractController
         $movie = new Movie();
         $movie->fromArray($row);
 
-        $user = $userRepository->findOneBy(['id' => 1]);
+        $user = $userRepository->findOneBy(['id' => 2]);
 
         $review = new Review();
         $review->setRating(4);
