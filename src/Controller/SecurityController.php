@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\EmailValidator;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SecurityController extends AbstractController
@@ -27,7 +27,8 @@ class SecurityController extends AbstractController
      */
     public function register(Request $request,
                              ValidatorInterface $validator,
-                             EntityManagerInterface $entityManager
+                             EntityManagerInterface $entityManager,
+                             UserPasswordEncoderInterface $passwordEncoder
     ): Response
     {
         $user = new User();
@@ -40,6 +41,11 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $user */
             $user = $form->getData();
+
+            // Manage password encoding
+            $hashedPassword = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($hashedPassword);
+
             $entityManager->persist($user);
             $entityManager->flush();
             dump($user);
